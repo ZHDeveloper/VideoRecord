@@ -61,6 +61,12 @@ public class CaptureSessionCoordinator: NSObject {
         return connection
     }()
     
+    private override init() { super.init() }
+    
+    init(sessionPreset preset: AVCaptureSession.Preset = .vga640x480) {
+        session.sessionPreset = preset
+        super.init()
+    }
 }
 
 public extension CaptureSessionCoordinator {
