@@ -21,27 +21,19 @@ public class AssetWriterCoordinator: NSObject {
         return asswtWriter.status
     }
     
+    public static let defaultVideoSetting: [String : Any] = [ AVVideoCodecKey: AVVideoCodecH264, AVVideoWidthKey: UIScreen.main.bounds.size.width,AVVideoHeightKey: UIScreen.main.bounds.size.height]
+    
+    public static let defaultAudioSetting: [String: Any] = [ AVFormatIDKey: kAudioFormatMPEG4AAC, AVNumberOfChannelsKey: 1, AVSampleRateKey: 22050]
+    
     private var asswtWriter: AVAssetWriter!
     private var videoWriterInput: AVAssetWriterInput!
     private var audioWriterInput: AVAssetWriterInput!
     
     private var startTime: CMTime?
-
-    let videoSetting: [String : Any] = [
-        AVVideoCodecKey: AVVideoCodecH264,
-        AVVideoWidthKey: UIScreen.main.bounds.size.width,
-        AVVideoHeightKey: UIScreen.main.bounds.size.height,
-    ]
-    
-    let audioSetting: [String: Any] = [
-        AVFormatIDKey: kAudioFormatMPEG4AAC,
-        AVNumberOfChannelsKey: 1,
-        AVSampleRateKey: 22050
-    ]
     
     private override init() { super.init() }
 
-    public init(fileUrl: URL) throws {
+    public init(fileUrl: URL, videoSetting: [String : Any] = AssetWriterCoordinator.defaultVideoSetting, audioSetting: [String: Any] = AssetWriterCoordinator.defaultAudioSetting) throws {
         super.init()
         
         do {
