@@ -79,24 +79,28 @@ public class AssetWriterCoordinator: NSObject {
         }
     }
     
-    public func startWriting() {
-        guard asswtWriter.status != .writing else {
-            return
-        }
-        asswtWriter.startWriting()
+    @discardableResult
+    public func startWriting() -> Bool {
+        return startWritingInOrientation(CGAffineTransform.identity)
     }
     
-    public func startWritingInOrientation(_ transform: CGAffineTransform) {
+    @discardableResult
+    public func startWritingInOrientation(_ transform: CGAffineTransform) -> Bool {
+        guard asswtWriter.status == .unknown else {
+            return false
+        }
         videoWriterInput.transform = transform
-        startWriting()
+        return asswtWriter.startWriting()
     }
 
     public func cancelWriting() {
-        if asswtWriter.status == .writing {
-            videoWriterInput.markAsFinished()
-            audioWriterInput.markAsFinished()
-        }
-        asswtWriter.cancelWriting()
+        
+        guard status == .writing else { return }
+
+        videoWriterInput.markAsFinished()
+        audioWriterInput.markAsFinished()
+
+        return asswtWriter.cancelWriting()
     }
     
     public func finishWriting() {

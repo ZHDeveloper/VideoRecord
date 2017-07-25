@@ -39,6 +39,13 @@
                                     <action selector="playAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JVO-NN-FLT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7In-pq-Jwv">
+                                <rect key="frame" x="156" y="499" width="62" height="30"/>
+                                <state key="normal" title="取消录制"/>
+                                <connections>
+                                    <action selector="cancelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KP1-S1-zMw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -46,6 +53,8 @@
                             <constraint firstItem="tQB-Bl-AEY" firstAttribute="top" secondItem="fLx-sh-YQ4" secondAttribute="bottom" constant="20.5" id="6IV-fb-0W4"/>
                             <constraint firstItem="fLx-sh-YQ4" firstAttribute="top" secondItem="3Gx-Am-3wV" secondAttribute="bottom" constant="50" id="DFC-h7-h1d"/>
                             <constraint firstItem="3Gx-Am-3wV" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="FeV-k5-aEW"/>
+                            <constraint firstItem="7In-pq-Jwv" firstAttribute="top" secondItem="tQB-Bl-AEY" secondAttribute="bottom" constant="20" id="JFs-eH-6dc"/>
+                            <constraint firstItem="7In-pq-Jwv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z5i-dn-LL0"/>
                             <constraint firstItem="fLx-sh-YQ4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="caU-Eo-H6h"/>
                             <constraint firstItem="tQB-Bl-AEY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fEc-EZ-KGl"/>
                         </constraints>

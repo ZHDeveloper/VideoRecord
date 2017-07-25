@@ -56,5 +56,10 @@ class ViewController: UIViewController {
         let player = AVPlayerViewController()
         
     }
+    
+    @IBAction func cancelAction(_ sender: Any) {
+        writerCoordinator.cancelWriting()
+    }
+    
 }
 
