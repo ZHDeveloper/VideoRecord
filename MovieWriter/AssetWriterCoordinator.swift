@@ -99,14 +99,17 @@ public class AssetWriterCoordinator: NSObject {
         finishWritingWithCompletionHandler {}
     }
     
+    /// handler will call back when status is writing
     public func finishWritingWithCompletionHandler(_ handler: @escaping ()->()) {
-        if asswtWriter.status == .writing {
-            videoWriterInput.markAsFinished()
-            audioWriterInput.markAsFinished()
-        }
+        
+        guard status == .writing else { return }
+        
+        videoWriterInput.markAsFinished()
+        audioWriterInput.markAsFinished()
+
         asswtWriter.finishWriting {
-            handler()
             self.startTime = nil
+            handler()
         }
     }
     
