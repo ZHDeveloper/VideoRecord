@@ -74,6 +74,15 @@ public class CaptureSessionCoordinator: NSObject {
         }
         videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice)
     }
+    
+    deinit {
+        videoOutput.setSampleBufferDelegate(nil, queue: nil)
+        audioOutput.setSampleBufferDelegate(nil, queue: nil)
+        movieWriter?.finishWriting()
+        session.stopRunning()
+        previewView.removeFromSuperview()
+        print("CaptureSessionCoordinator has deinit!!!")
+    }
 }
 
 public extension CaptureSessionCoordinator {

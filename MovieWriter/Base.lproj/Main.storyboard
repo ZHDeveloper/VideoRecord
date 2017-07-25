@@ -60,14 +60,23 @@
                                                     <constraint firstAttribute="width" constant="52" id="srL-hS-qc8"/>
                                                 </constraints>
                                                 <state key="normal" image="closeVideo"/>
+                                                <connections>
+                                                    <action selector="closeAction:" destination="qdm-CT-QD8" eventType="touchUpInside" id="e2y-er-uBr"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WOV-np-MRQ">
                                                 <rect key="frame" x="123" y="25" width="49" height="34"/>
                                                 <state key="normal" image="changeCamera"/>
+                                                <connections>
+                                                    <action selector="swapAction:" destination="qdm-CT-QD8" eventType="touchUpInside" id="L9E-mo-gug"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iz0-5Z-scO">
                                                 <rect key="frame" x="203" y="25" width="49" height="34"/>
                                                 <state key="normal" image="flashlightOff"/>
+                                                <connections>
+                                                    <action selector="flashAction:" destination="qdm-CT-QD8" eventType="touchUpInside" id="2dH-2e-KUc"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -94,6 +103,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMw-fC-JX9">
                                                 <rect key="frame" x="147.5" y="33" width="80" height="80"/>
                                                 <state key="normal" image="videoRecord"/>
+                                                <connections>
+                                                    <action selector="recordAction:" destination="qdm-CT-QD8" eventType="touchUpInside" id="gjM-y0-0ai"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

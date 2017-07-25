@@ -34,13 +34,23 @@ class ViewController: UIViewController {
         captureCoordinator.movieWriter = writerCoordinator
     }
     
-    @IBAction func startRecordAction(_ sender: Any) {
-        writerCoordinator.startWriting()
+    
+    @IBAction func recordAction(_ sender: Any) {
+        
     }
     
-    @IBAction func endRecordAction(_ sender: Any) {
-        writerCoordinator.finishWritingWithCompletionHandler {
-            print("---")
+    @IBAction func closeAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func swapAction(_ sender: Any) {
+        try? captureCoordinator.swapCameras()
+    }
+    
+    @IBAction func flashAction(_ sender: UIButton) {
+        let success = (try? captureCoordinator.toggleFlash()) ?? false
+        if success {
+            sender.isSelected = !sender.isSelected
         }
     }
     
@@ -55,18 +65,6 @@ class ViewController: UIViewController {
         
         let player = AVPlayerViewController()
         
-    }
-    
-    @IBAction func cancelAction(_ sender: Any) {
-//        writerCoordinator.cancelWriting()
-        writerCoordinator.saveToAlbumWithCompletionHandler { (finish, error) in
-            if let error = error {
-                print(error)
-            }
-            else {
-                print("保存成功")
-            }
-        }
     }
     
 }
