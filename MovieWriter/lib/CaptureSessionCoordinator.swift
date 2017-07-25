@@ -65,7 +65,7 @@ public class CaptureSessionCoordinator: NSObject {
     
     private override init() { super.init() }
     
-    init(sessionPreset preset: AVCaptureSession.Preset = .vga640x480, cameraPosition position: AVCaptureDevice.Position = .front) throws {
+    init(sessionPreset preset: AVCaptureSession.Preset = .vga640x480, cameraPosition position: AVCaptureDevice.Position = .back) throws {
         super.init()
         session.sessionPreset = preset
         guard let videoDevice = self.cameraDevice(with: position) else {

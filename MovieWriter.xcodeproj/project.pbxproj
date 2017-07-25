@@ -12,8 +12,8 @@
 		0225BE1F1F25C52B0030C96C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0225BE1D1F25C52B0030C96C /* Main.storyboard */; };
 		0225BE211F25C52B0030C96C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0225BE201F25C52B0030C96C /* Assets.xcassets */; };
 		0225BE241F25C52B0030C96C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0225BE221F25C52B0030C96C /* LaunchScreen.storyboard */; };
-		0225BE2C1F25C57D0030C96C /* CaptureSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0225BE2B1F25C57D0030C96C /* CaptureSessionCoordinator.swift */; };
-		0225BE311F25D21B0030C96C /* AssetWriterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0225BE301F25D21B0030C96C /* AssetWriterCoordinator.swift */; };
+		0226842D1F26F61D00A7566B /* AssetWriterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226842B1F26F61800A7566B /* AssetWriterCoordinator.swift */; };
+		0226842E1F26F61D00A7566B /* CaptureSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226842C1F26F61800A7566B /* CaptureSessionCoordinator.swift */; };
 		0234E99A1F25FBED00F2BFE1 /* UIView+NSLayoutAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234E9991F25FBE600F2BFE1 /* UIView+NSLayoutAnchor.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,8 +25,8 @@
 		0225BE201F25C52B0030C96C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0225BE231F25C52B0030C96C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0225BE251F25C52B0030C96C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0225BE2B1F25C57D0030C96C /* CaptureSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSessionCoordinator.swift; sourceTree = "<group>"; };
-		0225BE301F25D21B0030C96C /* AssetWriterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetWriterCoordinator.swift; sourceTree = "<group>"; };
+		0226842B1F26F61800A7566B /* AssetWriterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetWriterCoordinator.swift; sourceTree = "<group>"; };
+		0226842C1F26F61800A7566B /* CaptureSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSessionCoordinator.swift; sourceTree = "<group>"; };
 		0234E9991F25FBE600F2BFE1 /* UIView+NSLayoutAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NSLayoutAnchor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,10 +60,9 @@
 		0225BE181F25C52B0030C96C /* MovieWriter */ = {
 			isa = PBXGroup;
 			children = (
+				0226842A1F26F61800A7566B /* lib */,
 				0225BE191F25C52B0030C96C /* AppDelegate.swift */,
 				0225BE1B1F25C52B0030C96C /* ViewController.swift */,
-				0225BE2B1F25C57D0030C96C /* CaptureSessionCoordinator.swift */,
-				0225BE301F25D21B0030C96C /* AssetWriterCoordinator.swift */,
 				0234E9991F25FBE600F2BFE1 /* UIView+NSLayoutAnchor.swift */,
 				0225BE1D1F25C52B0030C96C /* Main.storyboard */,
 				0225BE201F25C52B0030C96C /* Assets.xcassets */,
@@ -71,6 +70,15 @@
 				0225BE251F25C52B0030C96C /* Info.plist */,
 			);
 			path = MovieWriter;
+			sourceTree = "<group>";
+		};
+		0226842A1F26F61800A7566B /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				0226842B1F26F61800A7566B /* AssetWriterCoordinator.swift */,
+				0226842C1F26F61800A7566B /* CaptureSessionCoordinator.swift */,
+			);
+			path = lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,10 +152,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0225BE311F25D21B0030C96C /* AssetWriterCoordinator.swift in Sources */,
+				0226842E1F26F61D00A7566B /* CaptureSessionCoordinator.swift in Sources */,
+				0226842D1F26F61D00A7566B /* AssetWriterCoordinator.swift in Sources */,
 				0234E99A1F25FBED00F2BFE1 /* UIView+NSLayoutAnchor.swift in Sources */,
 				0225BE1C1F25C52B0030C96C /* ViewController.swift in Sources */,
-				0225BE2C1F25C57D0030C96C /* CaptureSessionCoordinator.swift in Sources */,
 				0225BE1A1F25C52B0030C96C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
