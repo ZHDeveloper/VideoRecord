@@ -33,14 +33,6 @@ public class AssetWriterCoordinator: NSObject {
         AVVideoCodecKey: AVVideoCodecH264,
         AVVideoWidthKey: screenW,
         AVVideoHeightKey: screenH,
-        AVVideoCompressionPropertiesKey: [
-            AVVideoPixelAspectRatioKey: [
-                AVVideoPixelAspectRatioHorizontalSpacingKey: 1,
-                AVVideoPixelAspectRatioVerticalSpacingKey: 1
-            ],
-            AVVideoMaxKeyFrameIntervalKey: 1,
-            AVVideoAverageBitRateKey: 1280000
-        ]
     ]
     
     let audioSetting: [String: Any] = [
