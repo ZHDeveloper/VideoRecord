@@ -36,11 +36,7 @@ public class CaptureSessionCoordinator: NSObject {
     
     public var movieWriter: AssetWriterCoordinator?
     
-    private let videoDeviceInput: AVCaptureDeviceInput? = {
-        guard let device = AVCaptureDevice.default(for: .video) else { return nil}
-        let input = try? AVCaptureDeviceInput(device: device)
-        return input
-    }()
+    private var videoDeviceInput: AVCaptureDeviceInput?
     
     private let audioDeviceInput: AVCaptureDeviceInput? = {
         guard let device = AVCaptureDevice.default(for: .audio) else { return nil}
@@ -63,9 +59,14 @@ public class CaptureSessionCoordinator: NSObject {
     
     private override init() { super.init() }
     
-    init(sessionPreset preset: AVCaptureSession.Preset = .vga640x480) {
-        session.sessionPreset = preset
+    init(sessionPreset preset: AVCaptureSession.Preset = .vga640x480, cameraPosition position: AVCaptureDevice.Position = .front) throws {
         super.init()
+        session.sessionPreset = preset
+        guard let videoDevice = self.cameraDevice(with: position) else {
+            let error = NSError(domain: "Error", code: -1999, userInfo: [NSLocalizedDescriptionKey:"Can not init video device with \(position)"])
+            throw error
+        }
+        videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice)
     }
 }
 
@@ -99,6 +100,68 @@ public extension CaptureSessionCoordinator {
         previewView.session = session
         
         session.startRunning()
+    }
+    
+    public func toggleFlash() throws {
+        
+        if !session.isRunning { return }
+        
+        guard let device = videoDeviceInput?.device else { return }
+        
+        do {
+            try device.lockForConfiguration()
+        } catch  {
+            throw error
+        }
+        if device.flashMode == .on {
+            if device.isFlashModeSupported(.off),device.isTorchModeSupported(.off) {
+                device.flashMode = .off
+                device.torchMode = .off
+            }
+        }
+        else if device.flashMode == .off {
+            if device.isFlashModeSupported(.on),device.isTorchModeSupported(.on) {
+                device.flashMode = .on
+                device.torchMode = .on
+            }
+        }
+        device.unlockForConfiguration()
+    }
+    
+    public func swapCameras() throws {
+        
+        if !session.isRunning { return }
+        guard let device = videoDeviceInput?.device else { return }
+        
+        var newDevice: AVCaptureDevice? = nil
+        
+        if device.position == .back {
+            newDevice = cameraDevice(with: .front)
+        }
+        else if device.position == .front {
+            newDevice = cameraDevice(with: .back)
+        }
+        
+        guard let aDevice = newDevice else { return }
+        
+        do {
+            let newDeviceInput = try AVCaptureDeviceInput.init(device: aDevice)
+            session.beginConfiguration()
+            session.removeInput(videoDeviceInput!)
+            session.addInput(newDeviceInput)
+            session.commitConfiguration()
+            videoDeviceInput = newDeviceInput
+        } catch {
+            throw error
+        }
+    }
+    
+    func cameraDevice(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        let devices = AVCaptureDevice.devices(for: AVMediaType.video)
+        for aDevice in devices {
+            if aDevice.position == position { return aDevice}
+        }
+        return nil
     }
     
 }

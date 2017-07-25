@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        captureCoordinator = CaptureSessionCoordinator()
+        captureCoordinator = try! CaptureSessionCoordinator()
         
         view.insertSubview(captureCoordinator.previewView, at: 0)
         captureCoordinator.previewView.fillToSuperview()
