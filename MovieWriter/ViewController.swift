@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         url = NSURL.fileURL(withPath: "\(NSTemporaryDirectory())tmp\(arc4random()).mp4")
         writerCoordinator = try! AssetWriterCoordinator(fileUrl: url!)
         
-        captureCoordinator.addTarget(writerCoordinator)
+        captureCoordinator.movieWriter = writerCoordinator
     }
     
     @IBAction func startRecordAction(_ sender: Any) {

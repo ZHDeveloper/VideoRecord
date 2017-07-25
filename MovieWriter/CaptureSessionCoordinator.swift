@@ -34,7 +34,7 @@ public class CaptureSessionCoordinator: NSObject {
     
     public var captureQueue: DispatchQueue = DispatchQueue(label: "CaptureSessionCoordinator")
     
-    private var movieWriter: AssetWriterCoordinator?
+    public var movieWriter: AssetWriterCoordinator?
     
     private let videoDeviceInput: AVCaptureDeviceInput? = {
         guard let device = AVCaptureDevice.default(for: .video) else { return nil}
@@ -101,10 +101,6 @@ public extension CaptureSessionCoordinator {
         session.startRunning()
     }
     
-    func addTarget(_ writer: AssetWriterCoordinator) {
-        movieWriter = writer
-    }
-
 }
 
 extension CaptureSessionCoordinator: AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureAudioDataOutputSampleBufferDelegate {
