@@ -91,7 +91,7 @@
                                             <constraint firstItem="gRU-PS-HOS" firstAttribute="centerX" secondItem="3Gm-B4-WAe" secondAttribute="centerX" constant="40" id="hTo-NZ-tia"/>
                                         </constraints>
                                     </view>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NAQ-tl-auE">
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NAQ-tl-auE">
                                         <rect key="frame" x="0.0" y="517" width="375" height="4"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="4" id="xxg-6W-vzI"/>
@@ -147,6 +147,7 @@
                     </view>
                     <connections>
                         <outlet property="flashButton" destination="gRU-PS-HOS" id="DfL-aI-yyo"/>
+                        <outlet property="progressView" destination="NAQ-tl-auE" id="cAp-16-XOP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zNO-jI-A83" userLabel="First Responder" sceneMemberID="firstResponder"/>

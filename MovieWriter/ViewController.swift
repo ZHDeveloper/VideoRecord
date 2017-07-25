@@ -18,7 +18,8 @@ class ViewController: UIViewController {
     var timer: CADisplayLink!
     
     @IBOutlet weak var flashButton: UIButton!
-
+    @IBOutlet weak var progressView: UIProgressView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,10 +40,6 @@ class ViewController: UIViewController {
         
         if sender.isSelected {
             writerCoordinator.finishWritingWithCompletionHandler {
-                let playerVC = MPMoviePlayerViewController(contentURL: self.url)!
-                playerVC.moviePlayer.prepareToPlay()
-                playerVC.moviePlayer.play()
-                self.present(playerVC, animated: true, completion: nil)
             }
         }
         else {
@@ -74,7 +71,17 @@ class ViewController: UIViewController {
     }
     
     @objc func updateProgress() {
-        print(CMTimeGetSeconds(writerCoordinator.duration))
+        let proportion = CMTimeGetSeconds(writerCoordinator.duration) / 15
+        progressView.progress = Float(proportion)
+        if proportion >= 1 {
+            timer.invalidate()
+            writerCoordinator.finishWritingWithCompletionHandler {
+                let playerVC = MPMoviePlayerViewController(contentURL: self.url)!
+                playerVC.moviePlayer.prepareToPlay()
+                playerVC.moviePlayer.play()
+                self.present(playerVC, animated: true, completion: nil)
+            }
+        }
     }
     
 }

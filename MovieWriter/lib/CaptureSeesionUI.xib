@@ -48,7 +48,7 @@
                         <constraint firstAttribute="bottom" secondItem="klM-NR-lwk" secondAttribute="bottom" id="aLd-Ca-oTV"/>
                     </constraints>
                 </view>
-                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UOX-nF-TmR">
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UOX-nF-TmR">
                     <rect key="frame" x="0.0" y="517" width="375" height="4"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="4" id="UbO-xq-GcV"/>
