@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     var captureCoordinator: CaptureSessionCoordinator!
     var writerCoordinator: AssetWriterCoordinator!
-    var url: URL?
+    var url: URL!
     
     @IBOutlet weak var flashButton: UIButton!
 
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         try? captureCoordinator.prepareSession()
         
         url = NSURL.fileURL(withPath: "\(NSTemporaryDirectory())tmp\(arc4random()).mp4")
-        writerCoordinator = try! AssetWriterCoordinator(fileUrl: url!)
+        writerCoordinator = try! AssetWriterCoordinator(fileUrl: url)
         
         captureCoordinator.movieWriter = writerCoordinator
     }
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         
         if sender.isSelected {
             writerCoordinator.finishWritingWithCompletionHandler {
-                let playerVC = MPMoviePlayerViewController(contentURL: self.url!)!
+                let playerVC = MPMoviePlayerViewController(contentURL: self.url)!
                 playerVC.moviePlayer.prepareToPlay()
                 playerVC.moviePlayer.play()
                 self.present(playerVC, animated: true, completion: nil)
@@ -49,7 +49,6 @@ class ViewController: UIViewController {
         }
         
         sender.isSelected = !sender.isSelected
-        
     }
     
     @IBAction func closeAction(_ sender: Any) {
