@@ -50,7 +50,7 @@ public class AssetWriterCoordinator: NSObject {
                 throw error
             }
             guard asswtWriter.canAdd(audioWriterInput) else {
-                let error = NSError(domain: "AVAssetWriterError", code: -1999, userInfo: [NSLocalizedFailureReasonErrorKey:"Can not add AudioWriterInput"])
+                let error = NSError(domain: "AVAssetWriterError", code: -1999, userInfo: [NSLocalizedFailureReasonErrorKey: "Can not add AudioWriterInput"])
                 throw error
             }
             asswtWriter.add(videoWriterInput)

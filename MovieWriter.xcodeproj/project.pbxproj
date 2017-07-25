@@ -14,6 +14,7 @@
 		0225BE241F25C52B0030C96C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0225BE221F25C52B0030C96C /* LaunchScreen.storyboard */; };
 		0226842D1F26F61D00A7566B /* AssetWriterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226842B1F26F61800A7566B /* AssetWriterCoordinator.swift */; };
 		0226842E1F26F61D00A7566B /* CaptureSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226842C1F26F61800A7566B /* CaptureSessionCoordinator.swift */; };
+		022684301F26F8E000A7566B /* CaptureSeesionUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0226842F1F26F8E000A7566B /* CaptureSeesionUI.xib */; };
 		0234E99A1F25FBED00F2BFE1 /* UIView+NSLayoutAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234E9991F25FBE600F2BFE1 /* UIView+NSLayoutAnchor.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		0225BE251F25C52B0030C96C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0226842B1F26F61800A7566B /* AssetWriterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetWriterCoordinator.swift; sourceTree = "<group>"; };
 		0226842C1F26F61800A7566B /* CaptureSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSessionCoordinator.swift; sourceTree = "<group>"; };
+		0226842F1F26F8E000A7566B /* CaptureSeesionUI.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CaptureSeesionUI.xib; sourceTree = "<group>"; };
 		0234E9991F25FBE600F2BFE1 /* UIView+NSLayoutAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NSLayoutAnchor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +79,7 @@
 			children = (
 				0226842B1F26F61800A7566B /* AssetWriterCoordinator.swift */,
 				0226842C1F26F61800A7566B /* CaptureSessionCoordinator.swift */,
+				0226842F1F26F8E000A7566B /* CaptureSeesionUI.xib */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0225BE241F25C52B0030C96C /* LaunchScreen.storyboard in Resources */,
+				022684301F26F8E000A7566B /* CaptureSeesionUI.xib in Resources */,
 				0225BE211F25C52B0030C96C /* Assets.xcassets in Resources */,
 				0225BE1F1F25C52B0030C96C /* Main.storyboard in Resources */,
 			);
