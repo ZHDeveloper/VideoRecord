@@ -16,28 +16,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w5e-Tk-xhM">
-                    <rect key="frame" x="0.0" y="521" width="375" height="146"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d2-ZP-gig">
-                            <rect key="frame" x="147.5" y="33" width="80" height="80"/>
-                            <state key="normal" image="videoRecord"/>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="5d2-ZP-gig" firstAttribute="centerY" secondItem="w5e-Tk-xhM" secondAttribute="centerY" id="9cB-qb-u1k"/>
-                        <constraint firstAttribute="height" constant="146" id="HZe-R8-1i0"/>
-                        <constraint firstItem="5d2-ZP-gig" firstAttribute="centerX" secondItem="w5e-Tk-xhM" secondAttribute="centerX" id="iAv-WY-qXU"/>
-                    </constraints>
-                </view>
-                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UOX-nF-TmR">
-                    <rect key="frame" x="0.0" y="517" width="375" height="4"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="4" id="UbO-xq-GcV"/>
-                    </constraints>
-                    <color key="progressTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                </progressView>
                 <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="46W-WY-8BE">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                     <subviews>
@@ -67,6 +45,28 @@
                         <constraint firstItem="8bX-kO-j4h" firstAttribute="centerY" secondItem="Dxn-44-qM1" secondAttribute="centerY" id="MX3-Aa-mgh"/>
                         <constraint firstItem="Dxn-44-qM1" firstAttribute="centerY" secondItem="klM-NR-lwk" secondAttribute="centerY" id="XZg-HP-mGj"/>
                         <constraint firstAttribute="bottom" secondItem="klM-NR-lwk" secondAttribute="bottom" id="aLd-Ca-oTV"/>
+                    </constraints>
+                </view>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UOX-nF-TmR">
+                    <rect key="frame" x="0.0" y="517" width="375" height="4"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="4" id="UbO-xq-GcV"/>
+                    </constraints>
+                    <color key="progressTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </progressView>
+                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w5e-Tk-xhM">
+                    <rect key="frame" x="0.0" y="521" width="375" height="146"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d2-ZP-gig">
+                            <rect key="frame" x="147.5" y="33" width="80" height="80"/>
+                            <state key="normal" image="videoRecord"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="5d2-ZP-gig" firstAttribute="centerY" secondItem="w5e-Tk-xhM" secondAttribute="centerY" id="9cB-qb-u1k"/>
+                        <constraint firstAttribute="height" constant="146" id="HZe-R8-1i0"/>
+                        <constraint firstItem="5d2-ZP-gig" firstAttribute="centerX" secondItem="w5e-Tk-xhM" secondAttribute="centerX" id="iAv-WY-qXU"/>
                     </constraints>
                 </view>
             </subviews>

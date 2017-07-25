@@ -115,11 +115,11 @@ public extension CaptureSessionCoordinator {
         session.startRunning()
     }
     
-    public func toggleFlash() throws {
+    public func toggleFlash() throws -> Bool {
         
-        if !session.isRunning { return }
+        if !session.isRunning { return false }
         
-        guard let device = videoDeviceInput?.device else { return }
+        guard let device = videoDeviceInput?.device else { return false }
         
         do {
             try device.lockForConfiguration()
@@ -139,6 +139,7 @@ public extension CaptureSessionCoordinator {
             }
         }
         device.unlockForConfiguration()
+        return true
     }
     
     public func swapCameras() throws {
