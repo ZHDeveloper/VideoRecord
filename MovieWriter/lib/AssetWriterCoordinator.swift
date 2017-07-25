@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-public enum BufferType {
+public enum SampleBufferType {
     case video
     case audio
 }
@@ -109,7 +109,7 @@ public class AssetWriterCoordinator: NSObject {
         }, completionHandler: handler)
     }
     
-    public func processBuffer(_ buffer: CMSampleBuffer,type: BufferType) {
+    public func processBuffer(_ buffer: CMSampleBuffer,type: SampleBufferType) {
         
         guard status == .writing else { return }
         
