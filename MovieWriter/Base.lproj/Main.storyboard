@@ -18,45 +18,88 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Gx-Am-3wV">
-                                <rect key="frame" x="156.5" y="318.5" width="62" height="30"/>
-                                <state key="normal" title="开始录制"/>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yrj-eP-RSy" customClass="CaptureSeesionUI" customModule="MovieWriter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hNA-ET-i4h">
+                                        <rect key="frame" x="0.0" y="521" width="375" height="146"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZk-r2-Rtr">
+                                                <rect key="frame" x="147.5" y="33" width="80" height="80"/>
+                                                <state key="normal" image="videoRecord"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="EZk-r2-Rtr" firstAttribute="centerX" secondItem="hNA-ET-i4h" secondAttribute="centerX" id="4ff-TZ-sAK"/>
+                                            <constraint firstItem="EZk-r2-Rtr" firstAttribute="centerY" secondItem="hNA-ET-i4h" secondAttribute="centerY" id="YDa-fT-jes"/>
+                                            <constraint firstAttribute="height" constant="146" id="i88-bB-zqn"/>
+                                        </constraints>
+                                    </view>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uvl-wv-3xf">
+                                        <rect key="frame" x="0.0" y="517" width="375" height="4"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="4" id="Sjb-tE-AxO"/>
+                                        </constraints>
+                                        <color key="progressTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </progressView>
+                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJW-yC-jTw">
+                                        <rect key="frame" x="0.0" y="7200" width="375" height="64"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99G-jX-htX">
+                                                <rect key="frame" x="0.0" y="20" width="52" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="52" id="0t1-wO-pIS"/>
+                                                    <constraint firstAttribute="height" constant="44" id="Q1F-4h-oFs"/>
+                                                </constraints>
+                                                <state key="normal" image="closeVideo"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vjb-Fn-a92">
+                                                <rect key="frame" x="123" y="25" width="49" height="34"/>
+                                                <state key="normal" image="changeCamera"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWT-hG-6eN">
+                                                <rect key="frame" x="203" y="25" width="49" height="34"/>
+                                                <state key="normal" image="flashlightOff"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="99G-jX-htX" secondAttribute="bottom" id="De1-1d-LLC"/>
+                                            <constraint firstItem="Vjb-Fn-a92" firstAttribute="centerY" secondItem="99G-jX-htX" secondAttribute="centerY" id="aMO-M6-fL4"/>
+                                            <constraint firstItem="Vjb-Fn-a92" firstAttribute="centerX" secondItem="XJW-yC-jTw" secondAttribute="centerX" constant="-40" id="cMg-sG-ilE"/>
+                                            <constraint firstItem="99G-jX-htX" firstAttribute="leading" secondItem="XJW-yC-jTw" secondAttribute="leading" id="dW2-Xe-zCn"/>
+                                            <constraint firstItem="cWT-hG-6eN" firstAttribute="centerX" secondItem="XJW-yC-jTw" secondAttribute="centerX" constant="40" id="jar-eN-gcF"/>
+                                            <constraint firstAttribute="height" constant="64" id="lZf-It-dPc"/>
+                                            <constraint firstItem="cWT-hG-6eN" firstAttribute="centerY" secondItem="Vjb-Fn-a92" secondAttribute="centerY" id="xi7-ap-Tfa"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="uvl-wv-3xf" firstAttribute="leading" secondItem="yrj-eP-RSy" secondAttribute="leading" id="2kp-7j-Q8j"/>
+                                    <constraint firstItem="hNA-ET-i4h" firstAttribute="leading" secondItem="mst-9n-ucD" secondAttribute="leading" id="2sr-sk-PKr"/>
+                                    <constraint firstItem="XJW-yC-jTw" firstAttribute="leading" secondItem="mst-9n-ucD" secondAttribute="leading" id="6Rs-lL-NaR"/>
+                                    <constraint firstItem="mst-9n-ucD" firstAttribute="trailing" secondItem="hNA-ET-i4h" secondAttribute="trailing" id="Dev-O1-MzZ"/>
+                                    <constraint firstItem="mst-9n-ucD" firstAttribute="trailing" secondItem="XJW-yC-jTw" secondAttribute="trailing" id="Tuk-UO-rJZ"/>
+                                    <constraint firstItem="XJW-yC-jTw" firstAttribute="top" secondItem="mst-9n-ucD" secondAttribute="top" id="ZRH-AZ-SBV"/>
+                                    <constraint firstItem="hNA-ET-i4h" firstAttribute="top" secondItem="uvl-wv-3xf" secondAttribute="bottom" id="hh1-tk-vRq"/>
+                                    <constraint firstAttribute="trailing" secondItem="uvl-wv-3xf" secondAttribute="trailing" id="iyd-CO-z5a"/>
+                                    <constraint firstItem="mst-9n-ucD" firstAttribute="bottom" secondItem="hNA-ET-i4h" secondAttribute="bottom" id="pj3-ED-j26"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="mst-9n-ucD"/>
                                 <connections>
-                                    <action selector="startRecordAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qbg-aD-KJh"/>
+                                    <outlet property="bottomPannel" destination="hNA-ET-i4h" id="H0O-kj-OY1"/>
+                                    <outlet property="topPannel" destination="XJW-yC-jTw" id="gv1-EK-BsA"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLx-sh-YQ4">
-                                <rect key="frame" x="156" y="398.5" width="62" height="30"/>
-                                <state key="normal" title="结束录制"/>
-                                <connections>
-                                    <action selector="endRecordAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HhE-qW-XMW"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQB-Bl-AEY">
-                                <rect key="frame" x="156" y="449" width="62" height="30"/>
-                                <state key="normal" title="播放视频"/>
-                                <connections>
-                                    <action selector="playAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JVO-NN-FLT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7In-pq-Jwv">
-                                <rect key="frame" x="156" y="499" width="62" height="30"/>
-                                <state key="normal" title="取消录制"/>
-                                <connections>
-                                    <action selector="cancelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KP1-S1-zMw"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="3Gx-Am-3wV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2wc-mb-Zyo"/>
-                            <constraint firstItem="tQB-Bl-AEY" firstAttribute="top" secondItem="fLx-sh-YQ4" secondAttribute="bottom" constant="20.5" id="6IV-fb-0W4"/>
-                            <constraint firstItem="fLx-sh-YQ4" firstAttribute="top" secondItem="3Gx-Am-3wV" secondAttribute="bottom" constant="50" id="DFC-h7-h1d"/>
-                            <constraint firstItem="3Gx-Am-3wV" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="FeV-k5-aEW"/>
-                            <constraint firstItem="7In-pq-Jwv" firstAttribute="top" secondItem="tQB-Bl-AEY" secondAttribute="bottom" constant="20" id="JFs-eH-6dc"/>
-                            <constraint firstItem="7In-pq-Jwv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z5i-dn-LL0"/>
-                            <constraint firstItem="fLx-sh-YQ4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="caU-Eo-H6h"/>
-                            <constraint firstItem="tQB-Bl-AEY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fEc-EZ-KGl"/>
+                            <constraint firstAttribute="bottom" secondItem="yrj-eP-RSy" secondAttribute="bottom" id="Bgl-gr-VgJ"/>
+                            <constraint firstItem="yrj-eP-RSy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="D8O-g0-YwS"/>
+                            <constraint firstAttribute="trailing" secondItem="yrj-eP-RSy" secondAttribute="trailing" id="Rqd-Em-6kL"/>
+                            <constraint firstItem="yrj-eP-RSy" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Zp8-Ts-ySA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -65,4 +108,10 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="changeCamera" width="49" height="34"/>
+        <image name="closeVideo" width="18" height="18"/>
+        <image name="flashlightOff" width="49" height="34"/>
+        <image name="videoRecord" width="80" height="80"/>
+    </resources>
 </document>
