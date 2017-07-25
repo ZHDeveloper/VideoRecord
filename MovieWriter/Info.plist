@@ -45,5 +45,7 @@
 	<string>sss</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>bbb</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>ccc</string>
 </dict>
 </plist>

@@ -58,7 +58,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func cancelAction(_ sender: Any) {
-        writerCoordinator.cancelWriting()
+//        writerCoordinator.cancelWriting()
+        writerCoordinator.saveToAlbumWithCompletionHandler { (finish, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("保存成功")
+            }
+        }
     }
     
 }

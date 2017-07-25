@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Photos
 
 public enum BufferType {
     case video
@@ -108,6 +109,12 @@ public class AssetWriterCoordinator: NSObject {
             self.startTime = nil
             handler()
         }
+    }
+    
+    public func saveToAlbumWithCompletionHandler(_ handler:((Bool,Error?) -> ())? = nil) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetCreationRequest.creationRequestForAssetFromVideo(atFileURL: self.asswtWriter.outputURL)
+        }, completionHandler: handler)
     }
     
     public func processBuffer(_ buffer: CMSampleBuffer,type: BufferType) {
