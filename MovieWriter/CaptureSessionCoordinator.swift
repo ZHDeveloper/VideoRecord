@@ -87,6 +87,9 @@ public extension CaptureSessionCoordinator {
         videoOutput.setSampleBufferDelegate(self, queue: captureQueue)
         audioOutput.setSampleBufferDelegate(self, queue: captureQueue)
         
+        /// 视频录制的方向
+        videoConnection?.videoOrientation = .portrait
+
         previewView.session = session
         
         session.startRunning()
