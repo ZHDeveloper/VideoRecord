@@ -99,7 +99,9 @@ public class AssetWriterCoordinator: NSObject {
 
         asswtWriter.finishWriting {
             self.startTime = nil
-            handler()
+            DispatchQueue.main.async {
+                handler()
+            }
         }
     }
     

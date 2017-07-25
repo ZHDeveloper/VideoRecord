@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     var url: URL?
     
     @IBOutlet weak var flashButton: UIButton!
-    var playerVC: MPMoviePlayerViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +34,21 @@ class ViewController: UIViewController {
         captureCoordinator.movieWriter = writerCoordinator
     }
     
-    @IBAction func recordAction(_ sender: Any) {
+    @IBAction func recordAction(_ sender: UIButton) {
+        
+        if sender.isSelected {
+            writerCoordinator.finishWritingWithCompletionHandler {
+                let playerVC = MPMoviePlayerViewController(contentURL: self.url!)!
+                playerVC.moviePlayer.prepareToPlay()
+                playerVC.moviePlayer.play()
+                self.present(playerVC, animated: true, completion: nil)
+            }
+        }
+        else {
+            writerCoordinator.startWriting()
+        }
+        
+        sender.isSelected = !sender.isSelected
         
     }
     
@@ -59,15 +72,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playAction(_ sender: Any) {
-        
-        playerVC = MPMoviePlayerViewController(contentURL: url!)
-        
-        playerVC?.moviePlayer.prepareToPlay()
-        playerVC?.moviePlayer.play()
-        
-        present(playerVC!, animated: true, completion: nil)
-        
-        let player = AVPlayerViewController()
         
     }
     
