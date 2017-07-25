@@ -21,6 +21,11 @@ public class AssetWriterCoordinator: NSObject {
         return asswtWriter.status
     }
     
+    public var duration: CMTime {
+        guard let startTime = startTime,let previousFrameTime = previousFrameTime else { return kCMTimeZero }
+        return CMTimeSubtract(previousFrameTime, startTime)
+    }
+    
     public static let defaultVideoSetting: [String : Any] = [ AVVideoCodecKey: AVVideoCodecH264, AVVideoWidthKey: UIScreen.main.bounds.size.width,AVVideoHeightKey: UIScreen.main.bounds.size.height]
     
     public static let defaultAudioSetting: [String: Any] = [ AVFormatIDKey: kAudioFormatMPEG4AAC, AVNumberOfChannelsKey: 1, AVSampleRateKey: 22050]
@@ -30,6 +35,7 @@ public class AssetWriterCoordinator: NSObject {
     private var audioWriterInput: AVAssetWriterInput!
     
     private var startTime: CMTime?
+    private var previousFrameTime: CMTime?
     
     private override init() { super.init() }
 
@@ -115,8 +121,10 @@ public class AssetWriterCoordinator: NSObject {
         
         guard status == .writing else { return }
         
+        previousFrameTime = CMSampleBufferGetPresentationTimeStamp(buffer)
+        
         if startTime == nil {
-            startTime = CMSampleBufferGetPresentationTimeStamp(buffer)
+            startTime = previousFrameTime
             asswtWriter.startSession(atSourceTime: startTime!)
         }
         

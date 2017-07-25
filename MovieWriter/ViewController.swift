@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     var captureCoordinator: CaptureSessionCoordinator!
     var writerCoordinator: AssetWriterCoordinator!
     var url: URL!
+    var timer: CADisplayLink!
     
     @IBOutlet weak var flashButton: UIButton!
 
@@ -46,6 +47,8 @@ class ViewController: UIViewController {
         }
         else {
             writerCoordinator.startWriting()
+            timer = CADisplayLink(target: self, selector: #selector(updateProgress))
+            timer.add(to: RunLoop.main, forMode: .commonModes)
         }
         
         sender.isSelected = !sender.isSelected
@@ -68,6 +71,10 @@ class ViewController: UIViewController {
         if success {
             sender.isSelected = !sender.isSelected
         }
+    }
+    
+    @objc func updateProgress() {
+        print(CMTimeGetSeconds(writerCoordinator.duration))
     }
     
 }
