@@ -14,9 +14,6 @@ public enum BufferType {
     case audio
 }
 
-let screenW = UIScreen.main.bounds.size.width
-let screenH = UIScreen.main.bounds.size.height
-
 public class AssetWriterCoordinator: NSObject {
     
     public var status: AVAssetWriterStatus {
@@ -31,8 +28,8 @@ public class AssetWriterCoordinator: NSObject {
 
     let videoSetting: [String : Any] = [
         AVVideoCodecKey: AVVideoCodecH264,
-        AVVideoWidthKey: screenW,
-        AVVideoHeightKey: screenH,
+        AVVideoWidthKey: UIScreen.main.bounds.size.width,
+        AVVideoHeightKey: UIScreen.main.bounds.size.height,
     ]
     
     let audioSetting: [String: Any] = [
