@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var writerCoordinator: AssetWriterCoordinator!
     var url: URL?
     
+    @IBOutlet weak var flashButton: UIButton!
     var playerVC: MPMoviePlayerViewController?
 
     override func viewDidLoad() {
@@ -34,7 +35,6 @@ class ViewController: UIViewController {
         captureCoordinator.movieWriter = writerCoordinator
     }
     
-    
     @IBAction func recordAction(_ sender: Any) {
         
     }
@@ -44,11 +44,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func swapAction(_ sender: Any) {
+        
         try? captureCoordinator.swapCameras()
+        if captureCoordinator.capmerPosition == .front {
+            flashButton.isSelected = false
+        }
     }
     
     @IBAction func flashAction(_ sender: UIButton) {
-        let success = (try? captureCoordinator.toggleFlash()) ?? false
+        let success = captureCoordinator.toggleFlash()
         if success {
             sender.isSelected = !sender.isSelected
         }

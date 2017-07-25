@@ -38,6 +38,10 @@ public class CaptureSessionCoordinator: NSObject {
     
     public let session = AVCaptureSession()
     
+    public var capmerPosition: AVCaptureDevice.Position? {
+        return videoDeviceInput?.device.position
+    }
+    
     public var captureQueue: DispatchQueue = DispatchQueue(label: "CaptureSessionCoordinator")
     
     public var movieWriter: AssetWriterCoordinator?
@@ -124,7 +128,7 @@ public extension CaptureSessionCoordinator {
         session.startRunning()
     }
     
-    public func toggleFlash() throws -> Bool {
+    public func toggleFlash() -> Bool {
         
         if !session.isRunning { return false }
         
@@ -132,13 +136,22 @@ public extension CaptureSessionCoordinator {
         
         do {
             try device.lockForConfiguration()
+
         } catch  {
-            throw error
+            return false
         }
+        
+        defer {
+            device.unlockForConfiguration()
+        }
+        
         if device.flashMode == .on {
             if device.isFlashModeSupported(.off),device.isTorchModeSupported(.off) {
                 device.flashMode = .off
                 device.torchMode = .off
+            }
+            else {
+                return false
             }
         }
         else if device.flashMode == .off {
@@ -146,8 +159,10 @@ public extension CaptureSessionCoordinator {
                 device.flashMode = .on
                 device.torchMode = .on
             }
+            else {
+                return false
+            }
         }
-        device.unlockForConfiguration()
         return true
     }
     
