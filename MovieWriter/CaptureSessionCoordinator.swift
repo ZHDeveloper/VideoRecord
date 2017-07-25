@@ -11,17 +11,23 @@ import AVFoundation
 
 public enum CoordinatorError: Error,LocalizedError {
     case cameraAuthorDenied
-    case addDeviceInputFail
-    case addDataOutputFail
+    case addVideoDeviceInputFail
+    case addAudioDeviceInputFail
+    case addVideoOutputFail
+    case addAudioOutputFail
     
     public var errorDescription: String? {
         switch self {
         case .cameraAuthorDenied:
             return "Camera use not allow!!!"
-        case .addDeviceInputFail:
-            return "Can not add input device!!!"
-        case .addDataOutputFail:
+        case .addVideoDeviceInputFail:
+            return "Can not add input video device!!!"
+        case .addAudioDeviceInputFail:
+            return "Can not add input audio device!!!"
+        case .addVideoOutputFail:
             return "Can not add video data output!!!"
+        case .addAudioOutputFail:
+            return "Can not add audio data output!!!"
         }
     }
 }
@@ -79,24 +85,31 @@ public extension CaptureSessionCoordinator {
         guard AVCaptureDevice.authorizationStatus(for: .video) != .denied else {
             throw CoordinatorError.cameraAuthorDenied
         }
-        
         guard let videoDeviceInput = videoDeviceInput, session.canAddInput(videoDeviceInput) else {
-            throw CoordinatorError.addDeviceInputFail
+            throw CoordinatorError.addVideoDeviceInputFail
         }
-
-        session.addInput(videoDeviceInput)
+        guard let audioDeviceInput = audioDeviceInput, session.canAddInput(audioDeviceInput) else {
+            throw CoordinatorError.addAudioDeviceInputFail
+        }
+        guard session.canAddOutput(videoOutput) else {
+            throw CoordinatorError.addVideoOutputFail
+        }
+        guard session.canAddOutput(audioOutput) else {
+            throw CoordinatorError.addAudioOutputFail
+        }
         
-        session.addInput(audioDeviceInput!)
+        session.addInput(videoDeviceInput)
+        session.addInput(audioDeviceInput)
         
         session.addOutput(videoOutput)
         session.addOutput(audioOutput)
         
+        /// 视频录制的方向
+        videoConnection?.videoOrientation = .portrait
+        
         videoOutput.setSampleBufferDelegate(self, queue: captureQueue)
         audioOutput.setSampleBufferDelegate(self, queue: captureQueue)
         
-        /// 视频录制的方向
-        videoConnection?.videoOrientation = .portrait
-
         previewView.session = session
         
         session.startRunning()
@@ -156,7 +169,7 @@ public extension CaptureSessionCoordinator {
         }
     }
     
-    func cameraDevice(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+    fileprivate func cameraDevice(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let devices = AVCaptureDevice.devices(for: AVMediaType.video)
         for aDevice in devices {
             if aDevice.position == position { return aDevice}
