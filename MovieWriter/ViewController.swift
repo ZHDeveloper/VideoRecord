@@ -39,8 +39,7 @@ class ViewController: UIViewController {
     @IBAction func recordAction(_ sender: UIButton) {
         
         if sender.isSelected {
-            writerCoordinator.finishWritingWithCompletionHandler {
-            }
+            
         }
         else {
             writerCoordinator.startWriting()

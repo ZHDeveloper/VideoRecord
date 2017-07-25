@@ -61,6 +61,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d2-ZP-gig">
                             <rect key="frame" x="147.5" y="33" width="80" height="80"/>
                             <state key="normal" image="videoRecord"/>
+                            <state key="selected" image="videoPause"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -95,6 +96,7 @@
         <image name="closeVideo" width="18" height="18"/>
         <image name="flashlightOff" width="49" height="34"/>
         <image name="flashlightOn" width="49" height="34"/>
+        <image name="videoPause" width="80" height="80"/>
         <image name="videoRecord" width="80" height="80"/>
     </resources>
 </document>
