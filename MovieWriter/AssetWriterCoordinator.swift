@@ -56,11 +56,21 @@ public class AssetWriterCoordinator: NSObject {
         
         do {
             asswtWriter = try AVAssetWriter(outputURL: fileUrl, fileType: AVFileType.mp4)
+            
+            /// initial writer input
             videoWriterInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSetting)
             videoWriterInput.expectsMediaDataInRealTime = true
             audioWriterInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSetting)
             audioWriterInput.expectsMediaDataInRealTime = true
             
+            guard asswtWriter.canAdd(videoWriterInput) else {
+                let error = NSError(domain: "AVAssetWriterError", code: -1999, userInfo: [NSLocalizedFailureReasonErrorKey:"Can not add VideoWriterInput"])
+                throw error
+            }
+            guard asswtWriter.canAdd(audioWriterInput) else {
+                let error = NSError(domain: "AVAssetWriterError", code: -1999, userInfo: [NSLocalizedFailureReasonErrorKey:"Can not add AudioWriterInput"])
+                throw error
+            }
             asswtWriter.add(videoWriterInput)
             asswtWriter.add(audioWriterInput)
             
@@ -100,6 +110,7 @@ public class AssetWriterCoordinator: NSObject {
         }
         asswtWriter.finishWriting {
             handler()
+            self.startTime = nil
         }
     }
     
