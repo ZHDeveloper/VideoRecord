@@ -57,15 +57,13 @@ public class CaptureSessionCoordinator: NSObject {
     private let videoOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
     private let audioOutput: AVCaptureAudioDataOutput = AVCaptureAudioDataOutput()
     
-    lazy var audioConnection: AVCaptureConnection? = {
-        let connection = audioOutput.connection(with: .audio)
-        return connection
-    }()
+    var audioConnection: AVCaptureConnection? {
+        return audioOutput.connection(with: .audio)
+    }
     
-    lazy var videoConnection: AVCaptureConnection? = {
-        let connection = videoOutput.connection(with: .video)
-        return connection
-    }()
+    var videoConnection: AVCaptureConnection? {
+        return videoOutput.connection(with: .video)
+    }
     
     private override init() { super.init() }
     
@@ -188,6 +186,10 @@ public extension CaptureSessionCoordinator {
             session.removeInput(videoDeviceInput!)
             session.addInput(newDeviceInput)
             session.commitConfiguration()
+            
+            /// 视频录制的方向
+            videoConnection?.videoOrientation = .portrait
+
             videoDeviceInput = newDeviceInput
         } catch {
             throw error
@@ -212,10 +214,10 @@ extension CaptureSessionCoordinator: AVCaptureVideoDataOutputSampleBufferDelegat
         
         objc_sync_enter(self)
         
-        if connection == audioConnection {
+        if output == audioOutput {
             movieWriter.processBuffer(sampleBuffer, type: .audio)
         }
-        else if connection == videoConnection {
+        else if output == videoOutput {
             movieWriter.processBuffer(sampleBuffer, type: .video)
         }
         
