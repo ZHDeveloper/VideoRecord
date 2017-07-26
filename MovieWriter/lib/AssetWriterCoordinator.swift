@@ -38,7 +38,6 @@ public class AssetWriterCoordinator: NSObject {
         case .completed:
             return .completed
         case .failed:
-            print(asswtWriter.error)
             return .failed
         case .cancelled:
             return .cancelled
@@ -46,18 +45,8 @@ public class AssetWriterCoordinator: NSObject {
     }
     
     public var duration: CMTime {
-        if lastTimestamp.value > 0 {
-            if timeOffset.value > 0 {
-                print(status)
-                return CMTimeSubtract(CMTimeSubtract(lastTimestamp, startTime),timeOffset)
-            }
-            else {
-                return CMTimeSubtract(lastTimestamp, startTime)
-            }
-        }
-        else {
-            return kCMTimeZero
-        }
+        print(CMTimeGetSeconds(CMTimeSubtract(kCMTimeInvalid, startTime)))
+        return CMTimeSubtract(lastAudioPts, startTime)
     }
     
     public static let defaultVideoSetting: [String : Any] = [ AVVideoCodecKey: AVVideoCodecH264, AVVideoWidthKey: UIScreen.main.bounds.size.width,AVVideoHeightKey: UIScreen.main.bounds.size.height]
@@ -68,12 +57,12 @@ public class AssetWriterCoordinator: NSObject {
     private var videoWriterInput: AVAssetWriterInput!
     private var audioWriterInput: AVAssetWriterInput!
     
-    private var startTime: CMTime = kCMTimeInvalid
-    private var lastTimestamp: CMTime = kCMTimeInvalid
-    private var timeOffset: CMTime = kCMTimeInvalid
-    
     private var isPaused: Bool = false
     private var isDiscount: Bool = false
+    
+    private var startTime: CMTime = kCMTimeInvalid
+    private var timeOffset: CMTime = kCMTimeInvalid
+    private var lastAudioPts: CMTime = kCMTimeInvalid
     
     private override init() { super.init() }
 
@@ -168,38 +157,59 @@ public class AssetWriterCoordinator: NSObject {
         }, completionHandler: handler)
     }
     
-    public func processBuffer(_ buffer: CMSampleBuffer,type: SampleBufferType) {
-        
-        var buffer = buffer
+    public func processBuffer(_ sampleBuffer: CMSampleBuffer,type: SampleBufferType) {
         
         guard status == .writing else { return }
         
-        let presentTimeStamp = CMSampleBufferGetPresentationTimeStamp(buffer)
+        var pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
         
-        self.startSessionIfNecessary(timestamp: presentTimeStamp)
-        
-        lastTimestamp = presentTimeStamp
+        self.startSessionIfNecessary(timestamp: pts)
         
         if isDiscount {
             if type == .video { return }
             
             isDiscount = false
             
-            if timeOffset.value > 0 {
-                let margin = CMTimeSubtract(presentTimeStamp, lastTimestamp)
-                timeOffset = CMTimeAdd(timeOffset, margin)
+            let isAudioPtsValid = self.lastAudioPts.flags.intersection(CMTimeFlags.valid)
+            
+            if isAudioPtsValid.rawValue != 0 {
+
+                let isTimeOffsetPtsValid = self.timeOffset.flags.intersection(CMTimeFlags.valid)
+                if isTimeOffsetPtsValid.rawValue != 0 {
+                    pts = CMTimeSubtract(pts, self.timeOffset);
+                }
+                let offset = CMTimeSubtract(pts, self.lastAudioPts);
+                
+                if (self.timeOffset.value == 0)
+                {
+                    self.timeOffset = offset;
+                }
+                else
+                {
+                    self.timeOffset = CMTimeAdd(self.timeOffset, offset);
+                }
             }
-            else {
-                timeOffset = CMTimeSubtract(presentTimeStamp, startTime)
-            }
+            self.lastAudioPts.flags = CMTimeFlags()
         }
         
-        if timeOffset.value > 0 {
-            buffer = ajustTimeStamp(sample: buffer, offset: timeOffset)
+        var buffer = sampleBuffer
+
+        if self.timeOffset.value > 0 {
+            buffer = self.ajustTimeStamp(sample: sampleBuffer, offset: self.timeOffset)
+        }
+
+        if type == .audio {
+            var pts = CMSampleBufferGetPresentationTimeStamp(buffer)
+            let dur = CMSampleBufferGetDuration(buffer)
+            if (dur.value > 0)
+            {
+                pts = CMTimeAdd(pts, dur)
+            }
+            self.lastAudioPts = pts
         }
         
         guard CMSampleBufferDataIsReady(buffer) else { return }
-        
+
         switch type {
             case .video:
                 if videoWriterInput.isReadyForMoreMediaData {
@@ -218,38 +228,6 @@ public class AssetWriterCoordinator: NSObject {
             self.startTime = timestamp
             asswtWriter.startSession(atSourceTime: timestamp)
         }
-    }
-    
-    public func sampleBufferOffset(withSampleBuffer sampleBuffer: CMSampleBuffer, timeOffset: CMTime, duration: CMTime?) -> CMSampleBuffer? {
-        var itemCount: CMItemCount = 0
-        var status = CMSampleBufferGetSampleTimingInfoArray(sampleBuffer, 0, nil, &itemCount)
-        if status != 0 {
-            return nil
-        }
-        
-        var timingInfo = [CMSampleTimingInfo](repeating: CMSampleTimingInfo(duration: CMTimeMake(0, 0), presentationTimeStamp: CMTimeMake(0, 0), decodeTimeStamp: CMTimeMake(0, 0)), count: itemCount)
-        status = CMSampleBufferGetSampleTimingInfoArray(sampleBuffer, itemCount, &timingInfo, &itemCount);
-        if status != 0 {
-            return nil
-        }
-        
-        if let dur = duration {
-            for i in 0 ..< itemCount {
-                timingInfo[i].decodeTimeStamp = CMTimeSubtract(timingInfo[i].decodeTimeStamp, timeOffset);
-                timingInfo[i].presentationTimeStamp = CMTimeSubtract(timingInfo[i].presentationTimeStamp, timeOffset);
-                timingInfo[i].duration = dur
-            }
-        } else {
-            for i in 0 ..< itemCount {
-                timingInfo[i].decodeTimeStamp = CMTimeSubtract(timingInfo[i].decodeTimeStamp, timeOffset);
-                timingInfo[i].presentationTimeStamp = CMTimeSubtract(timingInfo[i].presentationTimeStamp, timeOffset);
-            }
-        }
-        
-        var sampleBufferOffset: CMSampleBuffer? = nil
-        CMSampleBufferCreateCopyWithNewTiming(kCFAllocatorDefault, sampleBuffer, itemCount, &timingInfo, &sampleBufferOffset)
-        
-        return sampleBufferOffset!
     }
     
     func ajustTimeStamp(sample: CMSampleBuffer, offset: CMTime) -> CMSampleBuffer {
