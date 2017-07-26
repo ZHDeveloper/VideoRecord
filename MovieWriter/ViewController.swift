@@ -38,13 +38,18 @@ class ViewController: UIViewController {
     
     @IBAction func recordAction(_ sender: UIButton) {
         
-        if sender.isSelected {
-            
-        }
-        else {
+        if writerCoordinator.status == .unknown {
             writerCoordinator.startWriting()
             timer = CADisplayLink(target: self, selector: #selector(updateProgress))
             timer.add(to: RunLoop.main, forMode: .commonModes)
+        }
+        else if writerCoordinator.status == .writing {
+            timer.isPaused = true
+            writerCoordinator.pauseWriting()
+        }
+        else if writerCoordinator.status == .paused {
+            timer.isPaused = false
+            writerCoordinator.resumeWriting()
         }
         
         sender.isSelected = !sender.isSelected
