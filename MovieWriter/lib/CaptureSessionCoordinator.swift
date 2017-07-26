@@ -118,6 +118,11 @@ public extension CaptureSessionCoordinator {
         /// 视频录制的方向
         videoConnection?.videoOrientation = .portrait
         
+        videoConnection?.automaticallyAdjustsVideoMirroring = false
+        if let videoConnection = videoConnection, videoConnection.isVideoMirroringSupported {
+            videoConnection.isVideoMirrored = true
+        }
+        
         videoOutput.setSampleBufferDelegate(self, queue: captureQueue)
         audioOutput.setSampleBufferDelegate(self, queue: captureQueue)
         
@@ -183,12 +188,19 @@ public extension CaptureSessionCoordinator {
         do {
             let newDeviceInput = try AVCaptureDeviceInput.init(device: aDevice)
             session.beginConfiguration()
+            
             session.removeInput(videoDeviceInput!)
             session.addInput(newDeviceInput)
-            session.commitConfiguration()
             
             /// 视频录制的方向
             videoConnection?.videoOrientation = .portrait
+            
+            videoConnection?.automaticallyAdjustsVideoMirroring = false
+            if let videoConnection = videoConnection, videoConnection.isVideoMirroringSupported {
+                videoConnection.isVideoMirrored = true
+            }
+
+            session.commitConfiguration()
 
             videoDeviceInput = newDeviceInput
         } catch {
