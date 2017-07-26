@@ -75,7 +75,7 @@ class ViewController: UIViewController {
     }
     
     @objc func updateProgress() {
-        let proportion = CMTimeGetSeconds(writerCoordinator.duration) / 15
+        let proportion = writerCoordinator.duration / 15
         progressView.progress = Float(proportion)
         if proportion >= 1 {
             timer.invalidate()

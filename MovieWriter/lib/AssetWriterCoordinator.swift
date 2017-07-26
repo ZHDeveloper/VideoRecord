@@ -44,9 +44,9 @@ public class AssetWriterCoordinator: NSObject {
         }
     }
     
-    public var duration: CMTime {
-        print(CMTimeGetSeconds(CMTimeSubtract(kCMTimeInvalid, startTime)))
-        return CMTimeSubtract(lastAudioPts, startTime)
+    public var duration: Double {
+        let duration = CMTimeGetSeconds(CMTimeSubtract(lastAudioPts, startTime))
+        return duration.isNaN ? 0.0 : duration
     }
     
     public static let defaultVideoSetting: [String : Any] = [ AVVideoCodecKey: AVVideoCodecH264, AVVideoWidthKey: UIScreen.main.bounds.size.width,AVVideoHeightKey: UIScreen.main.bounds.size.height]
@@ -118,7 +118,6 @@ public class AssetWriterCoordinator: NSObject {
     public func resumeWriting() {
         guard status == .paused else { return }
         isPaused = false
-        print(status)
     }
 
     public func cancelWriting() {
@@ -170,32 +169,32 @@ public class AssetWriterCoordinator: NSObject {
             
             isDiscount = false
             
-            let isAudioPtsValid = self.lastAudioPts.flags.intersection(CMTimeFlags.valid)
+            let isAudioPtsValid = lastAudioPts.flags.intersection(CMTimeFlags.valid)
             
             if isAudioPtsValid.rawValue != 0 {
 
-                let isTimeOffsetPtsValid = self.timeOffset.flags.intersection(CMTimeFlags.valid)
+                let isTimeOffsetPtsValid = timeOffset.flags.intersection(CMTimeFlags.valid)
                 if isTimeOffsetPtsValid.rawValue != 0 {
-                    pts = CMTimeSubtract(pts, self.timeOffset);
+                    pts = CMTimeSubtract(pts, timeOffset);
                 }
-                let offset = CMTimeSubtract(pts, self.lastAudioPts);
+                let offset = CMTimeSubtract(pts, lastAudioPts);
                 
-                if (self.timeOffset.value == 0)
+                if (timeOffset.value == 0)
                 {
-                    self.timeOffset = offset;
+                    timeOffset = offset;
                 }
                 else
                 {
-                    self.timeOffset = CMTimeAdd(self.timeOffset, offset);
+                    timeOffset = CMTimeAdd(timeOffset, offset);
                 }
             }
-            self.lastAudioPts.flags = CMTimeFlags()
+            lastAudioPts.flags = CMTimeFlags()
         }
         
         var buffer = sampleBuffer
 
-        if self.timeOffset.value > 0 {
-            buffer = self.ajustTimeStamp(sample: sampleBuffer, offset: self.timeOffset)
+        if timeOffset.value > 0 {
+            buffer = ajustTimeStamp(sample: sampleBuffer, offset: timeOffset)
         }
 
         if type == .audio {
@@ -224,8 +223,8 @@ public class AssetWriterCoordinator: NSObject {
     
     
     private func startSessionIfNecessary(timestamp: CMTime) {
-        if !self.startTime.isValid {
-            self.startTime = timestamp
+        if !startTime.isValid {
+            startTime = timestamp
             asswtWriter.startSession(atSourceTime: timestamp)
         }
     }
@@ -244,5 +243,9 @@ public class AssetWriterCoordinator: NSObject {
         var out: CMSampleBuffer?
         CMSampleBufferCreateCopyWithNewTiming(nil, sample, count, &info, &out);
         return out!
+    }
+    
+    deinit {
+        print("AssetWriterCoordinator has deinit!!!")
     }
 }
